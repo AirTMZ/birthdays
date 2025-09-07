@@ -19,12 +19,14 @@
   align-items: center;
   justify-content: center;
   opacity: 1;
-  transition: opacity 1s ease-out;
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  transform: scale(1);
 }
 
 .envelope-container.hidden {
   opacity: 0;
   pointer-events: none;
+  transform: scale(0.98);
 }
 
 /* Letterbox Animation */
@@ -143,24 +145,28 @@
 
 .envelope-address {
   position: absolute;
-  top: 60%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: #2c3e50;
   font-family: 'SF Pro Text', sans-serif;
-  line-height: 1.6;
+  line-height: 1.3;
   z-index: 5;
+  max-width: 85%;
 }
 
 .address-name {
-  font-size: 2.2rem;
   font-weight: 700;
   color: var(--primary-color, #667eea);
   margin-bottom: 0;
   letter-spacing: 1px;
   text-transform: capitalize;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .envelope-flap {
@@ -453,10 +459,9 @@
   }
 }
 
-/* Main content initially hidden */
+/* Main content visible by default - no flashing */
 .main-content {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+  opacity: 1;
 }
 
 .main-content.visible {
@@ -618,20 +623,52 @@ body.envelope-active {
 
 @keyframes float {
   0% {
-    transform: translateY(100vh) rotate(0deg) scale(0.8);
+    transform: translateY(0) rotate(0deg) scale(0.8);
     opacity: 0;
   }
-  10% {
+  15% {
     opacity: 0.9;
+    transform: translateY(-20vh) rotate(5deg) scale(1);
   }
-  50% {
-    transform: translateY(50vh) rotate(5deg) scale(1);
+  30% {
+    transform: translateY(-40vh) rotate(3deg) scale(1.05);
   }
-  90% {
+  60% {
+    transform: translateY(-60vh) rotate(-2deg) scale(1.1);
+  }
+  85% {
     opacity: 0.9;
+    transform: translateY(-80vh) rotate(-3deg) scale(1.15);
   }
   100% {
-    transform: translateY(-20px) rotate(-3deg) scale(1.1);
+    transform: translateY(-110vh) rotate(-5deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateY(-15vh) rotate(-3deg) scale(1.05);
+  }
+  35% {
+    transform: translateY(-30vh) rotate(2deg) scale(1);
+  }
+  55% {
+    transform: translateY(-50vh) rotate(-1deg) scale(1.1);
+  }
+  75% {
+    transform: translateY(-75vh) rotate(1deg) scale(1.2);
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-115vh) rotate(2deg) scale(1.3);
     opacity: 0;
   }
 }

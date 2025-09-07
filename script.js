@@ -94,6 +94,9 @@ function hideEnvelopeAndShowContent() {
   // Re-enable scrolling
   document.body.classList.remove('envelope-active');
   
+  // Show greeting immediately
+  showGreeting();
+  
   envelopeContainer.classList.add('hidden');
   
   setTimeout(() => {
@@ -101,7 +104,6 @@ function hideEnvelopeAndShowContent() {
     mainContent.classList.add('visible');
     
     // Initialize all other functions after envelope is hidden
-    showGreeting();
     initSmoothScrolling();
     initNavScrollEffect();
     initScrollAnimations();
@@ -112,12 +114,44 @@ function hideEnvelopeAndShowContent() {
     initMobileAnimations();
     createFloatingParticles();
     
-    // Show balloons only after main content is visible
+    // Show balloons when envelope animation completes
     setTimeout(() => {
-      if (document.querySelector('.balloons')) {
-        document.querySelector('.balloons').style.opacity = '1';
+      // Add balloons with better distribution and varied animations
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const balloon = document.createElement('div');
+          balloon.className = 'balloon';
+          
+          // Ensure even distribution across screen sections
+          const section = i % 4; // Divide screen into 4 sections
+          const sectionWidth = window.innerWidth / 4;
+          const leftPos = (section * sectionWidth) + (Math.random() * (sectionWidth - 60));
+          
+          // Varied animation types
+          const animationType = Math.random() < 0.5 ? 'float' : 'floatSlow';
+          const duration = 4 + Math.random() * 2; // 4-6 seconds (longer)
+          const delay = Math.random() * 0.5; // 0-0.5 second delay
+          
+          balloon.style.cssText = `
+            position: fixed;
+            width: ${50 + Math.random() * 20}px;
+            height: ${70 + Math.random() * 20}px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background: linear-gradient(45deg, hsl(${Math.random() * 360}, 70%, 60%), hsl(${Math.random() * 360}, 70%, 60%));
+            left: ${leftPos}px;
+            bottom: 100vh;
+            animation: ${animationType} ${duration}s ease-out ${delay}s forwards;
+            z-index: 1000;
+            pointer-events: none;
+            transform: rotate(${-10 + Math.random() * 20}deg);
+            opacity: 0;
+          `;
+          document.body.appendChild(balloon);
+          
+          setTimeout(() => balloon.remove(), 8000);
+        }, i * 150);
       }
-    }, 500);
+    }, 300);
   }, 1000);
 }
 
@@ -266,6 +300,7 @@ function initNavScrollEffect() {
 
 // Advanced intersection observer with stagger effects
 function initScrollAnimations() {
+  // Simplified scroll animations without opacity changes to prevent flashing
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -274,9 +309,8 @@ function initScrollAnimations() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        // Stagger animation delays
+        // Simple animation without opacity changes
         setTimeout(() => {
-          entry.target.style.opacity = '1';
           entry.target.style.transform = 'translateY(0) rotateX(0deg)';
           entry.target.classList.add('animated');
         }, index * 150);
@@ -284,11 +318,11 @@ function initScrollAnimations() {
     });
   }, observerOptions);
 
-  // Observe all animatable elements
+  // Observe all animatable elements without hiding them initially
   const animatedElements = document.querySelectorAll('.detail-card, .menu-category, .location-info');
   animatedElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(50px) rotateX(15deg)';
+    // Keep elements visible, just add transform for animation
+    el.style.transform = 'translateY(30px) rotateX(10deg)';
     el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
     observer.observe(el);
   });
@@ -733,27 +767,39 @@ document.addEventListener('keydown', (e) => {
     `;
     document.head.appendChild(style);
     
-    // Add extra balloons
-    for (let i = 0; i < 10; i++) {
+    // Add extra balloons with better distribution and varied animations
+    for (let i = 0; i < 12; i++) {
       setTimeout(() => {
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
+        
+        // Ensure even distribution across screen sections
+        const section = i % 4; // Divide screen into 4 sections
+        const sectionWidth = window.innerWidth / 4;
+        const leftPos = (section * sectionWidth) + (Math.random() * (sectionWidth - 60));
+        
+        // Varied animation types
+        const animationType = Math.random() < 0.5 ? 'float' : 'floatSlow';
+        const duration = 2.5 + Math.random() * 2; // 2.5-4.5 seconds
+        const delay = Math.random() * 0.5; // 0-0.5 second delay
+        
         balloon.style.cssText = `
           position: fixed;
-          width: 60px;
-          height: 80px;
+          width: ${50 + Math.random() * 20}px;
+          height: ${70 + Math.random() * 20}px;
           border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
           background: linear-gradient(45deg, hsl(${Math.random() * 360}, 70%, 60%), hsl(${Math.random() * 360}, 70%, 60%));
-          left: ${Math.random() * 100}%;
+          left: ${leftPos}px;
           bottom: -100px;
-          animation: float 3s ease-out forwards;
+          animation: ${animationType} ${duration}s ease-out ${delay}s forwards;
           z-index: 1000;
           pointer-events: none;
+          transform: rotate(${-10 + Math.random() * 20}deg);
         `;
         document.body.appendChild(balloon);
         
-        setTimeout(() => balloon.remove(), 3000);
-      }, i * 200);
+        setTimeout(() => balloon.remove(), 5000);
+      }, i * 150);
     }
     
     konamiCode = [];
