@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're Invited - Michelle's Birthday!</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800;900&family=SF+Pro+Text:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Floating Balloons -->
+  <div class="balloons">
+    <div class="balloon balloon-1"></div>
+    <div class="balloon balloon-2"></div>
+    <div class="balloon balloon-3"></div>
+    <div class="balloon balloon-4"></div>
+    <div class="balloon balloon-5"></div>
+  </div>
+
+  <!-- Envelope Animation -->
+  <div id="envelope-container" class="envelope-container">
+    <div class="letterbox">
+      <div class="letterbox-slot"></div>
+      <div class="letterbox-front"></div>
+    </div>
+    
+    <div class="envelope-wrapper">
+      <div class="envelope">
+        <div class="envelope-back"></div>
+        <div class="envelope-front">
+          <div class="envelope-address">
+            <div id="envelope-name" class="address-name">To You</div>
+          </div>
+        </div>
+        <div class="envelope-flap"></div>
+        
+        <!-- Wax seal moved outside front so it's always visible -->
+        <div class="envelope-seal">
+          <div class="wax-seal">
+            <span class="seal-initial">M</span>
+          </div>
+        </div>
+        
+        <!-- Invitation Card Inside -->
+        <div class="invitation-card">
+          <div class="card-border">
+            <div class="card-header">
+              <div class="card-ornament-top">✨ 🎉 ✨</div>
+              <h3>You're Invited!</h3>
+              <div class="card-ornament-bottom">🎊 🥳 🎊</div>
+            </div>
+            <div class="card-content">
+              <p class="invitation-title">Michelle's Birthday Celebration</p>
+              <div class="invitation-details">
+                <p class="invitation-date">📅 November 22, 2025</p>
+                <p class="invitation-time">🕖 7:00 PM</p>
+                <p class="invitation-location">📍 Whitley Bay</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <p class="tap-instruction">We would love it if...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="skip-animation">
+      <button id="skip-btn" class="skip-button">Skip Animation</button>
+    </div>
+    
+    <div class="hint-text" id="hint-text">
+      <p>💡 Hint: Click the envelope to open your invitation</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="nav-logo">🎉 Michelle's Birthday</div>
+      <div class="nav-links">
+        <a href="#details" class="nav-link">Details</a>
+        <a href="#location" class="nav-link">Location</a>
+        <a href="#menu" class="nav-link">Menu</a>
+      </div>
+      <div class="hamburger-menu" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <div class="mobile-menu-logo">🎉 Michelle's Birthday</div>
+        <button class="mobile-menu-close" id="mobileMenuClose">&times;</button>
+      </div>
+      <div class="mobile-menu-links">
+        <a href="#details" class="mobile-nav-link">
+          <span class="mobile-link-icon">📅</span>
+          <span class="mobile-link-text">Event Details</span>
+        </a>
+        <a href="#location" class="mobile-nav-link">
+          <span class="mobile-link-icon">📍</span>
+          <span class="mobile-link-text">Location</span>
+        </a>
+        <a href="#menu" class="mobile-nav-link">
+          <span class="mobile-link-icon">🍽️</span>
+          <span class="mobile-link-text">Menu</span>
+        </a>
+      </div>
+      <div class="mobile-menu-footer">
+        <p>November 22, 2025</p>
+        <p>Whitley Bay</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="greeting-container">
+        <h1 id="greeting" class="greeting"></h1>
+        <div class="invitation-text">You've been invited to</div>
+        <div class="celebration-text">Michelle's Birthday Celebration</div>
+      </div>
+      <div class="hero-date">November 22, 2025 • 7:00 PM</div>
+      <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Details -->
+  <section id="details" class="section details-section">
+    <div class="container">
+      <h2 class="section-title">You're Invited!</h2>
+      <div class="invitation-message">
+        <p id="personal-invitation">Michelle would love for you to join her special celebration</p>
+      </div>
+      <div class="details-grid">
+        <div class="detail-card">
+          <div class="detail-icon">📅</div>
+          <h3>Date & Time</h3>
+          <p>Saturday, November 22, 2025<br>7:00 PM - 11:00 PM</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">🎂</div>
+          <h3>Dress Code</h3>
+          <p>Smart Casual<br>Come as you are!</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">🎁</div>
+          <h3>Gifts</h3>
+          <p>Your presence is the best present<br>(but surprises are welcome!)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section id="location" class="section location-section">
+    <div class="container">
+      <h2 class="section-title">Where to Find Us</h2>
+      <div class="location-content">
+        <div class="location-info">
+          <h3>The Whitley Bay Venue</h3>
+          <p class="address">Whitley Bay<br>Tyne and Wear, England</p>
+          <p id="location-invitation" class="personal-message">We can't wait to see you there!</p>
+          <div class="location-actions">
+            <a href="https://maps.apple.com/?q=Whitley+Bay,+Tyne+and+Wear,+England" 
+               target="_blank" 
+               class="btn btn-primary map-link">
+              📍 Open in Maps
+            </a>
+            <a href="tel:+1234567890" class="btn btn-secondary">
+              📞 Call Venue
+            </a>
+          </div>
+        </div>
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36958.15316531487!2d-1.4675905!3d55.0454585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e7b1b5e7c7c7f%3A0x9c7c7c7c7c7c7c7c!2sWhitley%20Bay%2C%20UK!5e0!3m2!1sen!2sus!4v1699789200000!5m2!1sen!2sus"
+            width="100%" 
+            height="300" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="section menu-section">
+    <div class="container">
+      <h2 class="section-title">What's on the Menu</h2>
+      <p id="menu-invitation" class="personal-message">We've prepared something special for you!</p>
+      <div class="menu-grid">
+        <div class="menu-category">
+          <h3>🍽️ Lorem Ipsum</h3>
+          <ul>
+            <li>Consectetur adipiscing elit</li>
+            <li>Sed do eiusmod tempor</li>
+            <li>Incididunt ut labore</li>
+            <li>Dolore magna aliqua</li>
+          </ul>
+        </div>
+        <div class="menu-category">
+          <h3>🍰 Dolor Sit</h3>
+          <ul>
+            <li>Ut enim ad minim veniam</li>
+            <li>Quis nostrud exercitation</li>
+            <li>Ullamco laboris nisi</li>
+            <li>Ut aliquip ex ea commodo</li>
+          </ul>
+        </div>
+        <div class="menu-category">
+          <h3>🥤 Amet Consectetur</h3>
+          <ul>
+            <li>Duis aute irure dolor</li>
+            <li>Reprehenderit in voluptate</li>
+            <li>Velit esse cillum dolore</li>
+            <li>Eu fugiat nulla pariatur</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP Section -->
+  <section class="section rsvp-section">
+    <div class="container">
+      <h2 class="section-title">RSVP</h2>
+      <p class="rsvp-text">Please let us know if you can make it!</p>
+      <div class="rsvp-actions">
+        <a href="mailto:michelle@birthday.com?subject=RSVP%20for%20Michelle's%20Birthday" class="btn btn-primary">
+          ✉️ RSVP via Email
+        </a>
+        <a href="sms:+1234567890?body=Hi! I'd like to RSVP for Michelle's birthday party." class="btn btn-secondary">
+          💬 RSVP via Text
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  </div> <!-- End main-content -->
+
+  <script src="script.js"></script>
+</body>
+</html>
