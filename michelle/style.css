@@ -299,10 +299,12 @@
   margin: 1rem 0;
   font-family: 'SF Pro Display', sans-serif;
   line-height: 1.3;
+  display: none; /* Hide this text to prevent overflow */
 }
 
 .invitation-details {
   margin: 1rem 0;
+  display: none; /* Hide all date/time/location details */
 }
 
 .invitation-date, .invitation-time, .invitation-location {
@@ -311,6 +313,7 @@
   margin: 0.5rem 0;
   font-family: 'SF Pro Text', sans-serif;
   font-weight: 500;
+  display: none; /* Hide these as well for extra safety */
 }
 
 .card-footer {
@@ -500,6 +503,11 @@ body.envelope-active {
   height: 100%;
 }
 
+/* Hide main content when envelope is active */
+body.envelope-active .main-content {
+  display: none;
+}
+
 /* Advanced Floating Balloons Animation */
 .balloons {
   position: fixed;
@@ -624,11 +632,11 @@ body.envelope-active {
 @keyframes float {
   0% {
     transform: translateY(0) rotate(0deg) scale(0.8);
-    opacity: 0;
-  }
-  15% {
     opacity: 0.9;
-    transform: translateY(-20vh) rotate(5deg) scale(1);
+  }
+  10% {
+    opacity: 0.9;
+    transform: translateY(-15vh) rotate(5deg) scale(1);
   }
   30% {
     transform: translateY(-40vh) rotate(3deg) scale(1.05);
@@ -641,7 +649,7 @@ body.envelope-active {
     transform: translateY(-80vh) rotate(-3deg) scale(1.15);
   }
   100% {
-    transform: translateY(-110vh) rotate(-5deg) scale(1.2);
+    transform: translateY(-120vh) rotate(-5deg) scale(1.2);
     opacity: 0;
   }
 }
@@ -649,26 +657,26 @@ body.envelope-active {
 @keyframes floatSlow {
   0% {
     transform: translateY(0) rotate(0deg) scale(0.9);
-    opacity: 0;
+    opacity: 0.8;
   }
-  20% {
+  15% {
     opacity: 0.8;
     transform: translateY(-15vh) rotate(-3deg) scale(1.05);
   }
   35% {
-    transform: translateY(-30vh) rotate(2deg) scale(1);
+    transform: translateY(-35vh) rotate(2deg) scale(1);
   }
   55% {
-    transform: translateY(-50vh) rotate(-1deg) scale(1.1);
+    transform: translateY(-55vh) rotate(-1deg) scale(1.1);
   }
   75% {
-    transform: translateY(-75vh) rotate(1deg) scale(1.2);
+    transform: translateY(-80vh) rotate(1deg) scale(1.2);
   }
   90% {
     opacity: 0.7;
   }
   100% {
-    transform: translateY(-115vh) rotate(2deg) scale(1.3);
+    transform: translateY(-125vh) rotate(2deg) scale(1.3);
     opacity: 0;
   }
 }

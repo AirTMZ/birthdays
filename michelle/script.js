@@ -51,16 +51,9 @@ function initEnvelopeAnimation() {
   if (name && envelopeName) {
     envelopeName.textContent = `To ${capitalize(name)}`;
   }
-  
-  // Update invitation card with personalized info
-  if (name) {
-    const cardTitle = document.querySelector('.invitation-title');
-    if (cardTitle) {
-      cardTitle.textContent = `${capitalize(name)}, you're invited to Michelle's Birthday Celebration`;
-    }
-  }
-  
-  // Show hint text after 8 seconds
+
+  // Initialize mobile menu immediately (don't wait for envelope)
+  initMobileMenu();  // Show hint text after 8 seconds
   let hintTimeout = setTimeout(() => {
     if (hintText && !envelope.classList.contains('opening')) {
       hintText.classList.add('visible');
@@ -109,48 +102,23 @@ function hideEnvelopeAndShowContent() {
     initScrollAnimations();
     initParallaxEffect();
     initMouseEffects();
-    initMobileMenu();
     initUniversalMapLink();
     initMobileAnimations();
     createFloatingParticles();
     
     // Show balloons when envelope animation completes
     setTimeout(() => {
-      // Add balloons with better distribution and varied animations
-      for (let i = 0; i < 12; i++) {
+      // Initial burst of balloons for immediate effect
+      for (let i = 0; i < 5; i++) {
         setTimeout(() => {
-          const balloon = document.createElement('div');
-          balloon.className = 'balloon';
-          
-          // Ensure even distribution across screen sections
-          const section = i % 4; // Divide screen into 4 sections
-          const sectionWidth = window.innerWidth / 4;
-          const leftPos = (section * sectionWidth) + (Math.random() * (sectionWidth - 60));
-          
-          // Varied animation types
-          const animationType = Math.random() < 0.5 ? 'float' : 'floatSlow';
-          const duration = 4 + Math.random() * 2; // 4-6 seconds (longer)
-          const delay = Math.random() * 0.5; // 0-0.5 second delay
-          
-          balloon.style.cssText = `
-            position: fixed;
-            width: ${50 + Math.random() * 20}px;
-            height: ${70 + Math.random() * 20}px;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            background: linear-gradient(45deg, hsl(${Math.random() * 360}, 70%, 60%), hsl(${Math.random() * 360}, 70%, 60%));
-            left: ${leftPos}px;
-            bottom: 100vh;
-            animation: ${animationType} ${duration}s ease-out ${delay}s forwards;
-            z-index: 1000;
-            pointer-events: none;
-            transform: rotate(${-10 + Math.random() * 20}deg);
-            opacity: 0;
-          `;
-          document.body.appendChild(balloon);
-          
-          setTimeout(() => balloon.remove(), 8000);
-        }, i * 150);
+          createBalloon();
+        }, i * 300); // 300ms apart for quick succession
       }
+      
+      // Then start the continuous slower stream
+      setTimeout(() => {
+        startContinuousBalloons();
+      }, 2000); // Start continuous after 2 seconds
     }, 300);
   }, 1000);
 }
@@ -803,5 +771,66 @@ document.addEventListener('keydown', (e) => {
     }
     
     konamiCode = [];
+  }
+});
+
+// Continuous balloon system - maintains 2-3 balloons on screen
+let balloonInterval;
+let activeBalloons = 0;
+
+function startContinuousBalloons() {
+  balloonInterval = setInterval(() => {
+    // Only create new balloon if we have less than 3 active
+    if (activeBalloons < 3) {
+      createBalloon();
+    }
+  }, 1500 + Math.random() * 2500); // Every 1.5-4 seconds (more spaced out)
+}
+
+function createBalloon() {
+  const balloon = document.createElement('div');
+  balloon.className = 'balloon';
+  
+  // Random position across screen width
+  const leftPos = Math.random() * (window.innerWidth - 70);
+  
+  // Varied animation types
+  const animationType = Math.random() < 0.5 ? 'float' : 'floatSlow';
+  const duration = 4 + Math.random() * 2; // 4-6 seconds (much faster)
+  
+  balloon.style.cssText = `
+    position: fixed;
+    width: ${50 + Math.random() * 20}px;
+    height: ${70 + Math.random() * 20}px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: linear-gradient(45deg, hsl(${Math.random() * 360}, 70%, 60%), hsl(${Math.random() * 360}, 70%, 60%));
+    left: ${leftPos}px;
+    bottom: -100px;
+    animation: ${animationType} ${duration}s ease-out forwards;
+    z-index: 1000;
+    pointer-events: none;
+    transform: rotate(${-10 + Math.random() * 20}deg);
+    opacity: 0.9;
+  `;
+  
+  document.body.appendChild(balloon);
+  activeBalloons++;
+  
+  // Remove balloon and decrease counter when animation ends
+  setTimeout(() => {
+    if (balloon.parentNode) {
+      balloon.remove();
+    }
+    activeBalloons--;
+  }, duration * 1000);
+}
+
+// Stop balloons when page is hidden (optional cleanup)
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && balloonInterval) {
+    clearInterval(balloonInterval);
+  } else if (!document.hidden && balloonInterval === undefined) {
+    // Restart if page becomes visible again
+    startContinuousBalloons();
   }
 });
