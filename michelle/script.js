@@ -108,17 +108,8 @@ function hideEnvelopeAndShowContent() {
     
     // Show balloons when envelope animation completes
     setTimeout(() => {
-      // Initial burst of balloons for immediate effect
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-          createBalloon();
-        }, i * 300); // 300ms apart for quick succession
-      }
-      
-      // Then start the continuous slower stream
-      setTimeout(() => {
-        startContinuousBalloons();
-      }, 2000); // Start continuous after 2 seconds
+      // CSS balloons are now handling all balloon animations
+      // JavaScript balloon creation disabled to prevent conflicts
     }, 300);
   }, 1000);
 }
@@ -268,32 +259,8 @@ function initNavScrollEffect() {
 
 // Advanced intersection observer with stagger effects
 function initScrollAnimations() {
-  // Simplified scroll animations without opacity changes to prevent flashing
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        // Simple animation without opacity changes
-        setTimeout(() => {
-          entry.target.style.transform = 'translateY(0) rotateX(0deg)';
-          entry.target.classList.add('animated');
-        }, index * 150);
-      }
-    });
-  }, observerOptions);
-
-  // Observe all animatable elements without hiding them initially
-  const animatedElements = document.querySelectorAll('.detail-card, .menu-category, .location-info');
-  animatedElements.forEach(el => {
-    // Keep elements visible, just add transform for animation
-    el.style.transform = 'translateY(30px) rotateX(10deg)';
-    el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    observer.observe(el);
-  });
+  // Completely disabled to prevent any flashing issues
+  return;
 }
 
 // Parallax effect for hero section
@@ -446,80 +413,8 @@ function initUniversalMapLink() {
 
 // Enhanced mobile animations with performance optimization
 function initMobileAnimations() {
-  const isMobile = window.innerWidth <= 768;
-  
-  if (isMobile) {
-    // Add mobile-specific animation classes
-    document.body.classList.add('mobile-device');
-    
-    // Enhanced touch feedback for mobile
-    const touchElements = document.querySelectorAll('.detail-card, .menu-category, .btn, .mobile-nav-link');
-    
-    touchElements.forEach(element => {
-      element.addEventListener('touchstart', () => {
-        element.classList.add('touch-active');
-      });
-      
-      element.addEventListener('touchend', () => {
-        setTimeout(() => {
-          element.classList.remove('touch-active');
-        }, 150);
-      });
-    });
-    
-    // Mobile-optimized intersection observer
-    const mobileObserverOptions = {
-      threshold: 0.2,
-      rootMargin: '0px 0px -30px 0px'
-    };
-    
-    const mobileObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          // Add staggered mobile animations
-          setTimeout(() => {
-            entry.target.classList.add('mobile-visible');
-          }, index * 100);
-        }
-      });
-    }, mobileObserverOptions);
-    
-    // Observe mobile-specific elements
-    const mobileElements = document.querySelectorAll('.detail-card, .menu-category, .location-info, .section-title');
-    mobileElements.forEach(el => {
-      mobileObserver.observe(el);
-    });
-    
-    // Mobile scroll performance optimization
-    let mobileScrollTicking = false;
-    
-    function updateMobileScrollEffects() {
-      const scrollY = window.pageYOffset;
-      
-      // Lightweight mobile parallax
-      const hero = document.querySelector('.hero');
-      if (hero && scrollY < window.innerHeight) {
-        hero.style.transform = `translateY(${scrollY * 0.3}px)`;
-      }
-      
-      mobileScrollTicking = false;
-    }
-    
-    function requestMobileScrollTick() {
-      if (!mobileScrollTicking) {
-        requestAnimationFrame(updateMobileScrollEffects);
-        mobileScrollTicking = true;
-      }
-    }
-    
-    window.addEventListener('scroll', requestMobileScrollTick, { passive: true });
-    
-    // Mobile-specific card animations
-    const cards = document.querySelectorAll('.detail-card, .menu-category');
-    cards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.1}s`;
-    });
-  }
+  // Completely disabled to prevent flashing issues on mobile
+  return;
 }
 
 // Enhanced mobile menu with better animations
@@ -774,55 +669,18 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Continuous balloon system - maintains 2-3 balloons on screen
-let balloonInterval;
-let activeBalloons = 0;
+// Continuous balloon system - DISABLED (CSS handles balloons now)
+// let balloonInterval;
+// let activeBalloons = 0;
 
 function startContinuousBalloons() {
-  balloonInterval = setInterval(() => {
-    // Only create new balloon if we have less than 3 active
-    if (activeBalloons < 3) {
-      createBalloon();
-    }
-  }, 1500 + Math.random() * 2500); // Every 1.5-4 seconds (more spaced out)
+  // Disabled - CSS balloons are handling all balloon animations
+  return;
 }
 
 function createBalloon() {
-  const balloon = document.createElement('div');
-  balloon.className = 'balloon';
-  
-  // Random position across screen width
-  const leftPos = Math.random() * (window.innerWidth - 70);
-  
-  // Varied animation types
-  const animationType = Math.random() < 0.5 ? 'float' : 'floatSlow';
-  const duration = 4 + Math.random() * 2; // 4-6 seconds (much faster)
-  
-  balloon.style.cssText = `
-    position: fixed;
-    width: ${50 + Math.random() * 20}px;
-    height: ${70 + Math.random() * 20}px;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    background: linear-gradient(45deg, hsl(${Math.random() * 360}, 70%, 60%), hsl(${Math.random() * 360}, 70%, 60%));
-    left: ${leftPos}px;
-    bottom: -100px;
-    animation: ${animationType} ${duration}s ease-out forwards;
-    z-index: 1000;
-    pointer-events: none;
-    transform: rotate(${-10 + Math.random() * 20}deg);
-    opacity: 0.9;
-  `;
-  
-  document.body.appendChild(balloon);
-  activeBalloons++;
-  
-  // Remove balloon and decrease counter when animation ends
-  setTimeout(() => {
-    if (balloon.parentNode) {
-      balloon.remove();
-    }
-    activeBalloons--;
-  }, duration * 1000);
+  // Disabled - CSS balloons are handling all balloon animations
+  return;
 }
 
 // Stop balloons when page is hidden (optional cleanup)

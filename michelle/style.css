@@ -517,8 +517,7 @@ body.envelope-active .main-content {
   height: 100vh;
   pointer-events: none;
   z-index: 1;
-  opacity: 0;
-  transition: opacity 1s ease;
+  opacity: 1;
 }
 
 .balloon {
@@ -526,22 +525,9 @@ body.envelope-active .main-content {
   width: 50px;
   height: 70px;
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  opacity: 0.9;
-  animation: float 6s ease-in-out infinite;
+  opacity: 0.8;
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
   transform-origin: center bottom;
-}
-
-.balloon::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(100, 100, 100, 0.8), rgba(100, 100, 100, 0.4), transparent);
-  animation: sway 3s ease-in-out infinite;
 }
 
 .balloon::before {
@@ -557,127 +543,95 @@ body.envelope-active .main-content {
   animation: shine 2s ease-in-out infinite alternate;
 }
 
-/* Add balloon triangle knot */
-.balloon:after {
+.balloon::after {
   content: '';
   position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-top: 8px solid rgba(0, 0, 0, 0.3);
-  z-index: -1;
-}
-
-/* Add string */
-.balloon {
-  position: relative;
-}
-
-.balloon:before {
-  content: '';
-  position: absolute;
-  bottom: -45px;
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
   width: 1px;
-  height: 45px;
+  height: 20px;
   background: linear-gradient(to bottom, rgba(120, 120, 120, 0.8), transparent);
   animation: stringFloat 3s ease-in-out infinite;
 }
 
-@keyframes stringFloat {
-  0%, 100% { transform: translateX(-50%) rotate(0deg); }
-  50% { transform: translateX(-50%) rotate(3deg); }
-}
-
 .balloon-1 {
   background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-  left: 10%;
+  left: 15%;
+  animation: floatSmooth1 12s linear infinite;
   animation-delay: 0s;
-  animation-duration: 7s;
 }
 
 .balloon-2 {
   background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-  left: 25%;
-  animation-delay: 1s;
-  animation-duration: 8s;
+  left: 35%;
+  animation: floatSmooth2 15s linear infinite;
+  animation-delay: 3s;
 }
 
 .balloon-3 {
   background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
-  right: 20%;
-  animation-delay: 2s;
-  animation-duration: 6s;
+  right: 25%;
+  animation: floatSmooth3 18s linear infinite;
+  animation-delay: 6s;
 }
 
 .balloon-4 {
   background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-  right: 35%;
-  animation-delay: 3s;
-  animation-duration: 9s;
+  right: 45%;
+  animation: floatSmooth4 14s linear infinite;
+  animation-delay: 9s;
 }
 
 .balloon-5 {
   background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
-  left: 50%;
-  animation-delay: 4s;
-  animation-duration: 7s;
+  left: 65%;
+  animation: floatSmooth5 16s linear infinite;
+  animation-delay: 12s;
 }
 
-@keyframes float {
+@keyframes floatSmooth1 {
   0% {
-    transform: translateY(0) rotate(0deg) scale(0.8);
-    opacity: 0.9;
-  }
-  10% {
-    opacity: 0.9;
-    transform: translateY(-15vh) rotate(5deg) scale(1);
-  }
-  30% {
-    transform: translateY(-40vh) rotate(3deg) scale(1.05);
-  }
-  60% {
-    transform: translateY(-60vh) rotate(-2deg) scale(1.1);
-  }
-  85% {
-    opacity: 0.9;
-    transform: translateY(-80vh) rotate(-3deg) scale(1.15);
+    transform: translateY(120vh) translateX(0) rotate(0deg) scale(0.8);
   }
   100% {
-    transform: translateY(-120vh) rotate(-5deg) scale(1.2);
-    opacity: 0;
+    transform: translateY(-20vh) translateX(10px) rotate(8deg) scale(1.1);
   }
 }
 
-@keyframes floatSlow {
+@keyframes floatSmooth2 {
   0% {
-    transform: translateY(0) rotate(0deg) scale(0.9);
-    opacity: 0.8;
-  }
-  15% {
-    opacity: 0.8;
-    transform: translateY(-15vh) rotate(-3deg) scale(1.05);
-  }
-  35% {
-    transform: translateY(-35vh) rotate(2deg) scale(1);
-  }
-  55% {
-    transform: translateY(-55vh) rotate(-1deg) scale(1.1);
-  }
-  75% {
-    transform: translateY(-80vh) rotate(1deg) scale(1.2);
-  }
-  90% {
-    opacity: 0.7;
+    transform: translateY(120vh) translateX(0) rotate(0deg) scale(0.9);
   }
   100% {
-    transform: translateY(-125vh) rotate(2deg) scale(1.3);
-    opacity: 0;
+    transform: translateY(-20vh) translateX(-15px) rotate(-6deg) scale(1.2);
+  }
+}
+
+@keyframes floatSmooth3 {
+  0% {
+    transform: translateY(120vh) translateX(0) rotate(0deg) scale(0.7);
+  }
+  100% {
+    transform: translateY(-20vh) translateX(5px) rotate(4deg) scale(1.3);
+  }
+}
+
+@keyframes floatSmooth4 {
+  0% {
+    transform: translateY(120vh) translateX(0) rotate(0deg) scale(0.85);
+  }
+  100% {
+    transform: translateY(-20vh) translateX(-8px) rotate(-10deg) scale(1.15);
+  }
+}
+
+@keyframes floatSmooth5 {
+  0% {
+    transform: translateY(120vh) translateX(0) rotate(0deg) scale(0.95);
+  }
+  100% {
+    transform: translateY(-20vh) translateX(12px) rotate(7deg) scale(1.25);
   }
 }
 
@@ -1045,8 +999,7 @@ body.envelope-active .main-content {
   font-size: 3.5rem;
   font-weight: 300;
   margin-bottom: 1rem;
-  opacity: 0;
-  animation: textReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+  opacity: 1;
   letter-spacing: -0.025em;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -1055,8 +1008,7 @@ body.envelope-active .main-content {
   font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 0.5rem;
-  opacity: 0;
-  animation: textReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards;
+  opacity: 0.9;
   letter-spacing: -0.015em;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
   color: rgba(255, 255, 255, 0.9);
@@ -1065,8 +1017,7 @@ body.envelope-active .main-content {
 .celebration-text {
   font-size: 1.8rem;
   font-weight: 600;
-  opacity: 0;
-  animation: textReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+  opacity: 1;
   letter-spacing: -0.015em;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(45deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
@@ -1076,9 +1027,8 @@ body.envelope-active .main-content {
 
 .hero-date {
   font-size: 1.4rem;
-  opacity: 0;
+  opacity: 1;
   margin-bottom: 3rem;
-  animation: textReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1.5s forwards;
   padding: 1rem 2rem;
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
@@ -1096,14 +1046,12 @@ body.envelope-active .main-content {
 
 @keyframes textReveal {
   0% {
-    opacity: 0;
     transform: translateY(30px) rotateX(90deg);
   }
   60% {
     transform: translateY(-5px) rotateX(-10deg);
   }
   100% {
-    opacity: 1;
     transform: translateY(0) rotateX(0deg);
   }
 }
@@ -1113,8 +1061,7 @@ body.envelope-active .main-content {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0;
-  animation: fadeInUp 1s ease-out 2s forwards;
+  opacity: 0.8;
 }
 
 .scroll-arrow {
@@ -1152,11 +1099,9 @@ body.envelope-active .main-content {
 
 @keyframes fadeInUp {
   from {
-    opacity: 0;
     transform: translateX(-50%) translateY(30px);
   }
   to {
-    opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
 }
@@ -1683,9 +1628,10 @@ body.envelope-active .main-content {
     }
   }
   
-  /* Enhanced mobile card animations */
+  /* Enhanced mobile card animations - disabled to prevent flashing */
   .detail-card, .menu-category {
-    animation: mobileCardReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
   
   @keyframes mobileCardReveal {
@@ -1757,9 +1703,10 @@ body.envelope-active .main-content {
     animation-delay: 0.4s;
   }
   
-  /* Mobile scroll animations */
+  /* Mobile scroll animations - disabled to prevent flashing */
   .section {
-    animation: mobileSectionReveal 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+    opacity: 1;
+    transform: translateY(0);
   }
   
   @keyframes mobileSectionReveal {
@@ -1808,10 +1755,10 @@ body.envelope-active .main-content {
     }
   }
   
-  /* Enhanced mobile map container */
+  /* Enhanced mobile map container - disabled to prevent flashing */
   .map-container {
-    animation: mobileMapReveal 1s cubic-bezier(0.4, 0, 0.2, 1) both;
-    animation-delay: 0.3s;
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
   }
   
   @keyframes mobileMapReveal {
@@ -1848,9 +1795,10 @@ body.envelope-active .main-content {
     transform: translateY(-1px);
   }
   
-  /* Enhanced mobile typography animations */
+  /* Enhanced mobile typography animations - disabled to prevent flashing */
   .section-title {
-    animation: mobileTitleReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
   
   @keyframes mobileTitleReveal {
