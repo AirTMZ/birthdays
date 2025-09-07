@@ -165,22 +165,22 @@ function personalizeContent(name) {
   
   const capitalizedName = capitalize(name);
   
-  // Personalize invitation message
+  // Remove invitation message
   const invitationEl = document.getElementById('personal-invitation');
   if (invitationEl) {
-    invitationEl.textContent = `${capitalizedName}, Michelle would love for you to join her special celebration`;
+    invitationEl.style.display = 'none';
   }
   
   // Personalize location message
   const locationEl = document.getElementById('location-invitation');
   if (locationEl) {
-    locationEl.textContent = `${capitalizedName}, we can't wait to see you there!`;
+    locationEl.textContent = `See you there!`;
   }
   
-  // Personalize menu message
+  // Remove menu message
   const menuEl = document.getElementById('menu-invitation');
   if (menuEl) {
-    menuEl.textContent = `${capitalizedName}, we've prepared something special just for you!`;
+    menuEl.style.display = 'none';
   }
 }
 
